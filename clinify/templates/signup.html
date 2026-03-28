@@ -7,453 +7,146 @@
     <title>Cliniify | Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="{% static 'clinify/output.css' %}" rel="stylesheet">
     
-<style>
-    :root {
-        --primary-teal: #3cbba1;
-        --text-main: #212121;
-        --text-secondary: #757575;
-        --surface-border: #cde2e7;
-    }
-
-    /* Reset & Base Styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: #fff url("{% static 'clinify/Slider-bg.jpg' %}") no-repeat center center;
-        background-size: cover;
-        height: 100vh; /* Fixed height to match screen */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden; /* Removes the scrollbar */
-        position: relative;
-    }
-
-    /* Honeycomb Overlay */
-    body::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66' fill='none' stroke='%233cbba1' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E");
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .page-wrapper {
-        position: relative;
-        z-index: 10;
-        width: 100%;
-        max-width: 1440px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        padding: 0 5%;
-        gap: 40px;
-    }
-
-    /* --- Left Section (Hero) --- */
-    .left-section {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding-top: 10px;
-    }
-
-    .brand-logo {
-        width: 150px; /* Slightly smaller for tighter fit */
-        margin-bottom: 20px;
-    }
-
-    .hero-title {
-        font-size: clamp(32px, 3vw, 40px);
-        font-weight: 800;
-        color: var(--text-main);
-        line-height: 1.1;
-        margin-bottom: 15px;
-    }
-    .business-type {
-        color: var(--primary-teal);
-        display: inline-block;
-        height: 45px; /* Matches your title line-height */
-        overflow: hidden; /* Hides the words above and below */
-        vertical-align: top;
-    }
-
-    #type-text {
-        display: block;
-        position: relative;
-        /* Animation: Slide from top -> Stay -> Slide to bottom */
-        animation: scroll-down-effect 4s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
-    }
-
-    @keyframes scroll-down-effect {
-        0% { 
-            opacity: 0; 
-            transform: translateY(-100%); /* Start above the view */
+    <style>
+        .bg-honeycomb::before {
+            content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66' fill='none' stroke='%233cbba1' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
         }
-        15%, 85% { 
-            opacity: 1; 
-            transform: translateY(0); /* Stay in center */
+        @keyframes scroll-down-effect {
+            0% { opacity: 0; transform: translateY(-100%); }
+            15%, 85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(100%); }
         }
-        100% { 
-            opacity: 0; 
-            transform: translateY(100%); /* Exit toward the bottom */
-        }
-    }
-
-
-    .hero-illustration { 
-        width: 100%; 
-        max-width: 720px; 
-        height: auto; 
-        margin-left: -40px; 
-        margin-top: -40px; /* Pulls image up to save bottom space */
-        z-index: -1;
-    }
-
-    /* --- Steps Animation Styles --- */
-    .steps-container {
-        height: 105px;
-        overflow: hidden;
-        margin: 10px 0;
-        width: 100%;
-    }
-
-    .steps-swiper {
-        height: 100%;
-        position: relative;
-    }
-
-    .swiper-wrapper-custom {
-        display: flex;
-        flex-direction: column;
-        animation: slideVertical 16s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
-    }
-
-    @keyframes slideVertical {
-        0%, 20% { transform: translateY(0); }
-        25%, 45% { transform: translateY(-105px); }
-        50%, 70% { transform: translateY(-210px); }
-        75%, 95% { transform: translateY(-315px); }
-        100% { transform: translateY(0); }
-    }
-
-    .step-slide {
-        height: 105px;
-        display: flex;
-        align-items: center;
-    }
-
-    .step-item {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .step-number {
-        width: 45px;
-        height: 45px;
-        background: rgba(60, 187, 161, 0.1);
-        border: 1.5px solid var(--primary-teal);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-teal);
-        font-weight: 700;
-        font-size: 18px;
-        flex-shrink: 0;
-    }
-
-    .step-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text-main);
-        margin-bottom: 2px;
-    }
-
-    .step-text {
-        font-size: 14px;
-        color: var(--text-secondary);
-        line-height: 1.4;
-        max-width: 450px;
-    }
-
-    /* --- Right Section (Signup Card) --- */
-    .right-section {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .signup-card {
-        background: #FFFFFF;
-        width: 100%;
-        max-width: 460px; 
-        padding: 40px 35px; /* Tighter vertical padding */
-        border-radius: 28px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(0,0,0,0.02);
-        text-align: center;
-    }
-
-    .card-logo {
-        height: 50px;
-        width: 50px;
-        margin: 0 auto 15px;
-        object-fit: contain;
-    }
-
-    .card-heading {
-        font-size: 22px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    /* --- Floating Label Layout --- */
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 22px 15px; /* Tighter gap */
-        text-align: left;
-        margin: 30px 0 20px;
-    }
-
-    .full-width {
-        grid-column: span 2;
-    }
-
-    .input-group {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-      
-    }
-
-    .input-group label {
-        position: absolute;
-        top: -10px; 
-        left: 12px;
-        background: #fff; 
-        padding: 0 8px;
-        font-size: 16px;
-        font-weight: 500;
-        color: #1b1818;
-        z-index: 1;
+        .animate-scroll-down { animation: scroll-down-effect 4s cubic-bezier(0.645, 0.045, 0.355, 1) infinite; }
         
-    }
-    
-    .input-group input, .input-group select {
-        width: 100%;
-        height: 50px;
-        padding: 0 45px 0 15px;
-        background: transparent;
-        border: 3px solid var(--surface-border);
-        border-radius: 12px;
-        font-size: 12px;
-        color: #353c3c;
-        outline: none;
-        
-    }
-
-    .input-group input::placeholder {
-        opacity: 0.3;
-    }
-
-    .input-group input:focus {
-        border-color: var(--primary-teal);
-    }
-
-    .input-group i {
-        position: absolute;
-        right: 18px; 
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--surface-border);
-        font-size: 15px;
-        pointer-events: none;
-    }
-
-    .btn-continue {
-        width: 100%;
-        padding: 14px;
-        background: var(--primary-teal);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 5px;
-    }
-
-    .login-footer {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-
-    .login-footer a {
-        color: var(--primary-teal);
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    /* Responsive adjustment for Mobile/Tablets */
-    @media (max-width: 992px) {
-        body { overflow-y: auto; height: auto; padding: 40px 20px; display: block; }
-        .page-wrapper { display: flex; flex-direction: column; padding: 0; gap: 30px; }
-        .left-section { align-items: center; text-align: center; margin-bottom: 20px; }
-        .hero-illustration, .steps-container { display: none; }
-        .right-section { width: 100%; justify-content: center; }
-        .signup-card { width: 100%; max-width: 440px; }
-    }
-</style>
+        @keyframes slideVertical {
+            0%, 20% { transform: translateY(0); }
+            25%, 45% { transform: translateY(-105px); }
+            50%, 70% { transform: translateY(-210px); }
+            75%, 95% { transform: translateY(-315px); }
+            100% { transform: translateY(0); }
+        }
+        .animate-steps { animation: slideVertical 16s cubic-bezier(0.645, 0.045, 0.355, 1) infinite; }
+    </style>
 </head>
-<body>
+<body class="font-['Poppins'] bg-white bg-no-repeat bg-center bg-cover min-h-screen flex items-center justify-center relative bg-honeycomb py-10 lg:py-0 lg:overflow-hidden" 
+      style="background-image: url('{% static 'clinify/Slider-bg.jpg' %}');">
 
-    <div class="page-wrapper">
-    <div class="left-section">
-        <img src="{% static 'clinify/logo.png' %}" class="brand-logo" alt="Cliniify">
+    <div class="relative z-10 w-full max-w-[1440px] grid grid-cols-1 lg:grid-cols-2 items-center px-[5%] gap-10">
         
-        <h1 class="hero-title">
-            Healthcare & Medical Business in <br>
-            <span class="business-type">
-                <span id="type-text">Medical Equipment</span>
-            </span>
-        </h1>
+        <div class="flex flex-col items-start pt-2 hidden lg:flex">
+            <img src="{% static 'clinify/logo.png' %}" class="w-[150px] mb-5" alt="Cliniify">
+            <h1 class="text-[clamp(32px,3vw,40px)] font-extrabold text-[#212121] leading-[1.1] mb-4">
+                Healthcare & Medical Business in <br>
+                <span class="text-[#3cbba1] inline-block h-[45px] overflow-hidden align-top">
+                    <span id="type-text" class="block relative animate-scroll-down">Medical Equipment</span>
+                </span>
+            </h1>
 
-        <div class="steps-container">
-            <div class="steps-swiper">
-                <div class="swiper-wrapper-custom">
-                    <div class="step-slide">
-                        <div class="step-item">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <div class="step-title">Access Registration Page</div>
-                                <div class="step-text">Visit Cliniify's website login page and navigate to the registration section.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-slide">
-                        <div class="step-item">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <div class="step-title">Provide Requested Information</div>
-                                <div class="step-text">Fill out the registration form with name, email, and contact number.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-slide">
-                        <div class="step-item">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <div class="step-title">Create Account and Verify Email</div>
-                                <div class="step-text">Set credentials and verify your email address.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="step-slide">
-                        <div class="step-item">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <div class="step-title">OTP and Initial Setup</div>
-                                <div class="step-text">Verify OTP and complete initial setup to start using Cliniify.</div>
-                            </div>
+            <div class="h-[105px] overflow-hidden my-2 w-full">
+                <div class="flex flex-col animate-steps">
+                    <div class="h-[105px] flex items-center gap-5">
+                        <div class="w-[45px] h-[45px] bg-[#3cbba11a] border-[1.5px] border-[#3cbba1] rounded-full flex items-center justify-center text-[#3cbba1] font-bold text-lg shrink-0">1</div>
+                        <div>
+                            <div class="text-lg font-bold text-[#212121]">Access Registration Page</div>
+                            <div class="text-sm text-[#757575] leading-snug">Visit Cliniify's website login page and navigate to registration.</div>
                         </div>
                     </div>
                 </div>
             </div>
+            <img src="{% static 'clinify/hero-bg.png' %}" class="w-full max-w-[720px] h-auto -ml-10 -mt-10 -z-10" alt="Doctors">
         </div>
 
-        <img src="{% static 'clinify/hero-bg.png' %}" class="hero-illustration" alt="Doctors">
-    </div>
+        <div class="flex flex-col items-center justify-center lg:justify-end gap-8">
 
-        <div class="right-section">
-            <div class="signup-card">
-                <img src="{% static 'clinify/loginlogo.png' %}" class="card-logo" alt="Logo">
-                <h2 class="card-heading">Create Your Account</h2>
+            <div class="flex lg:hidden flex-col items-center text-center px-4">
+                <img src="{% static 'clinify/logo.png' %}" class="w-[130px] mb-4" alt="Cliniify Logo">
+                <p class="text-sm text-[#757575] font-medium">Join the Cliniify healthcare network.</p>
+            </div>
+
+            <div class="bg-white w-full max-w-[460px] p-8 lg:p-10 rounded-[28px] shadow-2xl border border-black/5 text-center">
+                <img src="{% static 'clinify/loginlogo.png' %}" class="h-12 w-12 mx-auto mb-4 object-contain" alt="Logo">
+                <h2 class="text-2xl font-bold text-[#333] mb-6">Create Your Account</h2>
 
                 {% if step == 1 %}
-                <form method="GET" action="{% url 'signup' %}">
-                    <div class="input-group" style="text-align: left;border:1px solid">
-                        <label>Select Category</label>
-                        <select name="category" required style="opacity: 0.2;padding-left: 15px;">
-                            <option value="" disabled selected >Select Category</option>
+                <form method="GET" action="{% url 'signup' %}" class="space-y-6">
+                    <div class="relative flex flex-col text-left">
+                        <label class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818] z-10">Select Category</label>
+                        <select name="category" required 
+                                class="w-full h-[55px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1] appearance-none bg-transparent">
+                            <option value="" disabled selected>Select Category</option>
                             <option value="dentist">🦷 Dentist</option>
                             <option value="physiotherapy">💪 Physiotherapy</option>
                             <option value="dermatologist">🧑‍⚕️ Dermatologist</option>
                             <option value="orthopadic">🦴 Orthopaedic</option>
                         </select>
-                       
+                        <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7] pointer-events-none"></i>
                     </div>
-                    <button type="submit" class="btn-continue" style="margin-top: 20px;">Continue</button>
+                    <button type="submit" class="w-full py-4 bg-[#3cbba1] hover:bg-[#2da38a] text-white rounded-xl font-bold text-lg transition shadow-lg shadow-[#3cbba1]/20">
+                        Continue
+                    </button>
                 </form>
+
                 {% else %}
-                <form method="POST" class="form-grid">
+                <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 text-left">
                     {% csrf_token %}
-                    <div class="input-group">
-                        <input type="text" id="doc_name" placeholder="Full name" required>
-                        <label for="doc_name">Doctor Name</label>
-                        <i class="fas fa-user"></i>
+                    <div class="relative flex flex-col">
+                        <input type="text" id="doc_name" placeholder="Full name" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1] placeholder:opacity-30">
+                        <label for="doc_name" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Doctor Name</label>
+                        <i class="fas fa-user absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
                     </div>
-                    <div class="input-group">
-                        <input type="text" id="clinic_name" placeholder="Clinic name" required>
-                        <label for="clinic_name">Clinic Name</label>
-                        <i class="fas fa-hospital"></i>
+                    <div class="relative flex flex-col">
+                        <input type="text" id="clinic_name" placeholder="Clinic name" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1] placeholder:opacity-30">
+                        <label for="clinic_name" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Clinic Name</label>
+                        <i class="fas fa-hospital absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
                     </div>
-                    <div class="input-group full-width">
-                        <input type="email" id="email_id" placeholder="Valid email id" required>
-                        <label for="email_id">Email Id</label>
-                        <i class="fas fa-envelope"></i>
+                    <div class="relative flex flex-col md:col-span-2">
+                        <input type="email" id="email_id" placeholder="Valid email" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1] placeholder:opacity-30">
+                        <label for="email_id" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Email Id</label>
+                        <i class="fas fa-envelope absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
                     </div>
-                    <div class="input-group full-width">
-                        <input type="text" id="phone_num" placeholder="Enter phone number" required>
-                        <label for="phone_num">Phone Number</label>
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="set_pass" placeholder="Enter password" required>
-                        <label for="set_pass">Set Password</label>
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="conf_pass" placeholder="Confirm password" required>
-                        <label for="conf_pass">Confirm Password</label>
-                        <i class="fas fa-lock"></i>
+                    <div class="relative flex flex-col md:col-span-2">
+                        <input type="text" id="phone_num" placeholder="Enter phone" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1] placeholder:opacity-30">
+                        <label for="phone_num" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Phone Number</label>
+                        <i class="fas fa-phone absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
                     </div>
                     
-                    <div class="full-width" style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
-                        <input type="checkbox" required> I agree to the <a href="#" style="color: var(--primary-teal); font-weight: 600;">Terms & Conditions</a>
+                    <div class="relative flex flex-col md:col-span-2">
+                        <input type="password" id="set_pass" placeholder="Password" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1]">
+                        <label for="set_pass" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Set Password</label>
+                        <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
+                    </div>
+                    <div class="relative flex flex-col md:col-span-2">
+                        <input type="password" id="conf_pass" placeholder="Confirm" required class="w-full h-[50px] px-4 border-[3px] border-[#cde2e7] rounded-xl text-sm outline-none focus:border-[#3cbba1]">
+                        <label for="conf_pass" class="absolute -top-2.5 left-3 bg-white px-2 text-sm font-semibold text-[#1b1818]">Confirm Password</label>
+                        <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-[#cde2e7]"></i>
                     </div>
 
-                    <button type="submit" class="btn-continue full-width">Sign Up</button>
+                    <div class="md:col-span-2 flex items-center gap-2 text-xs text-[#757575]">
+                        <input type="checkbox" required class="accent-[#3cbba1]">
+                        <span>I agree to the <a href="#" class="text-[#3cbba1] font-bold hover:underline">Terms & Conditions</a></span>
+                    </div>
+                    <button type="submit" class="md:col-span-2 py-4 bg-[#3cbba1] hover:bg-[#2da38a] text-white rounded-xl font-bold text-lg transition shadow-lg shadow-[#3cbba1]/20 active:scale-95">Sign Up</button>
                 </form>
                 {% endif %}
 
-                <div class="login-footer">
-                    Already have an account? <a href="{% url 'home' %}">Sign In</a>
+                <div class="mt-6 text-sm text-[#757575]">
+                    Already have an account? <a href="{% url 'home' %}" class="text-[#3cbba1] font-bold hover:underline">Sign In</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-    const texts = ["Medical Equipment", "Pharma & Medicines", "Physiotherapy Supplies", "Surgical Instruments"];
+        const texts = ["Medical Equipment", "Pharma & Medicines", "Physiotherapy Supplies", "Surgical Instruments"];
         let index = 0;
         const textElement = document.getElementById('type-text');
-        
         setInterval(() => {
             index = (index + 1) % texts.length;
-            // The text swaps exactly when the container is at 0% opacity (invisible)
             textElement.innerText = texts[index];
         }, 4000);
     </script>
-
 </body>
 </html>

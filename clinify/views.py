@@ -6,6 +6,8 @@ from django.http import HttpResponse
 def home (request):
     return render(request,'login.html')
 
+
+
 def signup(request):
     category=request.GET.get('category')
     context={
